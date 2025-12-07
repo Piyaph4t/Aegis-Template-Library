@@ -23,10 +23,12 @@ sub_string(const ag_string str, size_t pos, size_t len){
      if (pos >= str->size) return NULL;
 
      if(pos + len > str->size) len = str->size - len;
-     ag_string sub = vec_init(len+1, char, 1);
-     strncpy((char *)sub->data,((char *)str->data) + pos,  len);
+     
+     char substring[len+1] = {'\n'};
 
-     return sub; 
+     strncpy(substring,((char *)str->data) + pos,  len);
+
+     return new_string(substring); 
 }
 
 inline ag_string 
@@ -45,4 +47,11 @@ string_copy(const ag_string _dest ,const ag_string _src)
 {
      strcpy(_dest->data, _src->data);
 }
+
+inline char*
+find_substr(const ag_string src_str, const ag_string str_to_search)
+{
+     return (!src_str->data && !str_to_search->data) ? NULL : strstr( (char*)src_str->data, (char*) str_to_search->data);
+}
+
 int main(){}
